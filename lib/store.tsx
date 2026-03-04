@@ -68,39 +68,6 @@ function normalizeProjectData(data: ProjectData): ProjectData {
     ann.descriptions = nextDescriptions
   }
 
-  // 2) Move everything except math under uncategorized/*.
-  const UNCATEGORIZED_MAJOR = "uncategorized"
-  const remapNonMathTag = (tag: string): string => {
-    const { major, minor } = parseTag(tag)
-    if (!major) return tag
-    if (major === "math") return minor ? `math/${minor}` : "math"
-    if (major === UNCATEGORIZED_MAJOR) return minor ? `${UNCATEGORIZED_MAJOR}/${minor}` : UNCATEGORIZED_MAJOR
-    const leaf = minor || major
-    return `${UNCATEGORIZED_MAJOR}/${leaf}`
-  }
-
-  data.tags = data.tags.map(remapNonMathTag)
-  if (data.tags.some((tag) => tag.startsWith("math/")) && !data.tags.includes("math")) {
-    data.tags.push("math")
-  }
-  if (data.tags.some((tag) => tag.startsWith(`${UNCATEGORIZED_MAJOR}/`)) && !data.tags.includes(UNCATEGORIZED_MAJOR)) {
-    data.tags.push(UNCATEGORIZED_MAJOR)
-  }
-  data.tags = data.tags.filter((tag, idx, arr) => arr.indexOf(tag) === idx)
-
-  for (const key of Object.keys(data.annotations)) {
-    const ann = data.annotations[key]
-    const remappedTags = ann.tags.map(remapNonMathTag)
-    ann.tags = remappedTags.filter((tag, idx) => remappedTags.indexOf(tag) === idx)
-
-    const remappedDescriptions: Record<string, string> = {}
-    for (const [tag, desc] of Object.entries(ann.descriptions || {})) {
-      const nextTag = remapNonMathTag(tag)
-      if (!remappedDescriptions[nextTag]) remappedDescriptions[nextTag] = desc
-    }
-    ann.descriptions = remappedDescriptions
-  }
-
   rebuildTagColorMap(data.tags)
   return data
 }
