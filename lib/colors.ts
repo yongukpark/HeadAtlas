@@ -12,25 +12,59 @@ export type TagColor = {
 }
 
 const TAG_PALETTE: BaseColor[] = [
+  // 1-10: 기본 원색 계열 (기존 항목 포함 및 조정)
   { text: "#3b82f6", badge: "#3b82f6", rgb: [59, 130, 246] },    // blue
-  { text: "#ef4444", badge: "#ef4444", rgb: [239, 68, 68] },      // red
-  { text: "#22c55e", badge: "#22c55e", rgb: [34, 197, 94] },      // green
-  { text: "#f97316", badge: "#f97316", rgb: [249, 115, 22] },     // orange
-  { text: "#a855f7", badge: "#a855f7", rgb: [168, 85, 247] },     // purple
-  { text: "#ec4899", badge: "#ec4899", rgb: [236, 72, 153] },     // pink
-  { text: "#14b8a6", badge: "#14b8a6", rgb: [20, 184, 166] },     // teal
-  { text: "#ca8a04", badge: "#ca8a04", rgb: [202, 138, 4] },      // yellow
-  { text: "#6366f1", badge: "#6366f1", rgb: [99, 102, 241] },     // indigo
-  { text: "#06b6d4", badge: "#06b6d4", rgb: [6, 182, 212] },       // cyan
+  { text: "#ef4444", badge: "#ef4444", rgb: [239, 68, 68] },    // red
+  { text: "#22c55e", badge: "#22c55e", rgb: [34, 197, 94] },    // green
+  { text: "#f59e0b", badge: "#f59e0b", rgb: [245, 158, 11] },   // amber
+  { text: "#a855f7", badge: "#a855f7", rgb: [168, 85, 247] },   // purple
+  { text: "#ec4899", badge: "#ec4899", rgb: [236, 72, 153] },   // pink
+  { text: "#06b6d4", badge: "#06b6d4", rgb: [6, 182, 212] },    // cyan
+  { text: "#f43f5e", badge: "#f43f5e", rgb: [244, 63, 94] },    // rose
+  { text: "#8b5cf6", badge: "#8b5cf6", rgb: [139, 92, 246] },   // violet
+  { text: "#10b981", badge: "#10b981", rgb: [16, 185, 129] },   // emerald
+
+  // 11-20: 중간 톤 및 변형 색상
+  { text: "#f97316", badge: "#f97316", rgb: [249, 115, 22] },   // orange
+  { text: "#6366f1", badge: "#6366f1", rgb: [99, 102, 241] },   // indigo
+  { text: "#14b8a6", badge: "#14b8a6", rgb: [20, 184, 166] },   // teal
+  { text: "#d946ef", badge: "#d946ef", rgb: [217, 70, 239] },   // fuchsia
+  { text: "#84cc16", badge: "#84cc16", rgb: [132, 204, 22] },   // lime
+  { text: "#0ea5e9", badge: "#0ea5e9", rgb: [14, 165, 233] },   // sky
+  { text: "#fbbf24", badge: "#fbbf24", rgb: [251, 191, 36] },   // yellow-gold
+  { text: "#4ade80", badge: "#4ade80", rgb: [74, 222, 128] },   // light green
+  { text: "#fb7185", badge: "#fb7185", rgb: [251, 113, 133] },   // soft rose
+  { text: "#2dd4bf", badge: "#2dd4bf", rgb: [45, 212, 191] },   // soft teal
+
+  // 21-30: 딥 톤 및 유니크 컬러 (구분력 강화)
+  { text: "#b91c1c", badge: "#b91c1c", rgb: [185, 28, 28] },    // dark red
+  { text: "#1e40af", badge: "#1e40af", rgb: [30, 64, 175] },    // dark blue
+  { text: "#15803d", badge: "#15803d", rgb: [21, 128, 61] },    // dark green
+  { text: "#7c3aed", badge: "#7c3aed", rgb: [124, 58, 237] },   // deep violet
+  { text: "#be185d", badge: "#be185d", rgb: [190, 24, 93] },    // deep pink
+  { text: "#0369a1", badge: "#0369a1", rgb: [3, 105, 161] },    // deep sky
+  { text: "#a16207", badge: "#a16207", rgb: [161, 98, 7] },     // dark amber
+  { text: "#4f46e5", badge: "#4f46e5", rgb: [79, 70, 229] },    // royal indigo
+  { text: "#9333ea", badge: "#9333ea", rgb: [147, 51, 234] },   // bright purple
+  { text: "#0891b2", badge: "#0891b2", rgb: [8, 145, 178] },    // deep cyan
 ]
 
 const SUBTOPIC_VARIANTS = [
-  { tone: "light", amount: 0.46, bgAlpha: 0.11 },
-  { tone: "light", amount: 0.34, bgAlpha: 0.14 },
-  { tone: "light", amount: 0.22, bgAlpha: 0.17 },
-  { tone: "light", amount: 0.12, bgAlpha: 0.2 },
-  { tone: "dark", amount: 0.08, bgAlpha: 0.22 },
-  { tone: "dark", amount: 0.16, bgAlpha: 0.25 },
+  // 초반부: 매우 가볍고 투명한 느낌 (배경 위주)
+  { tone: "light", amount: 0.55, bgAlpha: 0.08 }, // 1단계: 아주 미세한 색감
+  { tone: "light", amount: 0.46, bgAlpha: 0.11 }, // 2단계 (기존 1)
+  { tone: "light", amount: 0.38, bgAlpha: 0.13 }, // 3단계: 중간 보간
+  { tone: "light", amount: 0.30, bgAlpha: 0.15 }, // 4단계: 중간 보간
+
+  // 중반부: 색상이 눈에 띄기 시작하는 지점
+  { tone: "light", amount: 0.22, bgAlpha: 0.18 }, // 5단계 (기존 3)
+  { tone: "light", amount: 0.15, bgAlpha: 0.21 }, // 6단계: 채도가 올라오는 지점
+  { tone: "dark",  amount: 0.08, bgAlpha: 0.24 }, // 7단계 (기존 5): 텍스트가 반전되는 Dark 톤 시작
+
+  // 후반부: 강조 및 깊은 색감
+  { tone: "dark",  amount: 0.16, bgAlpha: 0.28 }, // 8단계 (기존 6)
+  { tone: "dark",  amount: 0.25, bgAlpha: 0.32 }, // 9단계: 더 묵직한 배경색
+  { tone: "dark",  amount: 0.35, bgAlpha: 0.38 }, // 10단계: 가장 강한 강조
 ] as const
 
 interface ParsedTag {
